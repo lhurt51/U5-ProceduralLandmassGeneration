@@ -4,7 +4,13 @@ using UnityEngine;
 
 public static class MeshGenerator {
 
-	public static MeshData GenerateTerrainMesh(float[,] heightMap, float heightMultiplier, AnimationCurve _heightCurve, int levelOfDetail, bool useFlatShadding) {
+    public const int numSupportedLODs = 5;
+    public const int numSupportedChunkSizes = 9;
+    public const int numSupportedFlatshadedChunkSizes = 3;
+    public static readonly int[] supportedChunkSizes = { 48, 72, 96, 120, 144, 168, 192, 216, 240 };
+    public static readonly int[] supportedFlatshaddedChunkSizes = { 48, 72, 96 };
+
+    public static MeshData GenerateTerrainMesh(float[,] heightMap, float heightMultiplier, AnimationCurve _heightCurve, int levelOfDetail, bool useFlatShadding) {
 		AnimationCurve heightCurve = new AnimationCurve(_heightCurve.keys);
 		int meshSimplificationIncrement = (levelOfDetail == 0) ? 1 : levelOfDetail * 2;
 
@@ -60,7 +66,7 @@ public static class MeshGenerator {
 			}
 		}
 
-        meshData.Finalize();
+        meshData.Finnalize();
 
 		return meshData;
 	}
@@ -163,7 +169,7 @@ public class MeshData {
 		return Vector3.Cross(SideAB, SideAC).normalized;
 	}
 
-    public void Finalize() {
+    public void Finnalize() {
         if (useFlatShadding)
             FlatShading();
         else
