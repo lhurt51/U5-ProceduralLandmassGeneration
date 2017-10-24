@@ -6,10 +6,7 @@ using UnityEditor;
 [CustomEditor (typeof (MapPreview))]
 public class MapPriviewEditor : Editor {
 
-    public override void OnInspectorGUI()
-    {
-		base.OnInspectorGUI();
-
+    public override void OnInspectorGUI() {
         MapPreview mapGen = (MapPreview)target;
 
         if (DrawDefaultInspector()) {
