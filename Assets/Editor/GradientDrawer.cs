@@ -23,7 +23,9 @@ public class GradientDrawer : PropertyDrawer {
         }
         else if (guiEvent.type == EventType.MouseDown && guiEvent.button == 0 && textRect.Contains(guiEvent.mousePosition))
         {
-            EditorWindow.GetWindow<GradientEditor>();
+            GradientEditor window = EditorWindow.GetWindow<GradientEditor>();
+
+            window.SetGradient(gradient);
         }
     }
 
