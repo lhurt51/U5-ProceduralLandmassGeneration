@@ -5,8 +5,19 @@ using UnityEngine;
 [System.Serializable]
 public class CustomGradient {
 
+    public enum BlendMode { Linear, Discrete };
+    public BlendMode blendMode;
+
+    public bool bRandomizeColor;
+
     [SerializeField]
     List<ColorKey> keys = new List<ColorKey>();
+
+    public CustomGradient()
+    {
+        AddKey(Color.white, 0.0f);
+        AddKey(Color.black, 1.0f);
+    }
 
     public int NumKeys
     {
@@ -18,13 +29,33 @@ public class CustomGradient {
         return keys[i];
     }
 
-    public void AddKey(Color color, float time)
+    public int AddKey(Color color, float time)
     {
         ColorKey newKey = new ColorKey(color, time);
 
-        for (int i = 0; i < NumKeys; i++) if (newKey.Time < keys[i].Time) { keys.Insert(i, newKey); return; }
+        for (int i = 0; i < NumKeys; i++) if (newKey.Time < keys[i].Time) { keys.Insert(i, newKey); return i; }
 
         keys.Add(newKey);
+        return NumKeys - 1;
+    }
+
+    public void RemoveKey(int index, bool bOverride = false)
+    {
+        if (bOverride || keys.Count >= 2) keys.RemoveAt(index);
+    }
+
+    public int UpdateKeyTime(int index, float time)
+    {
+        Color color = keys[index].Color;
+
+        RemoveKey(index, true);
+
+        return AddKey(color, time);
+    }
+
+    public void UpdateKeyColor(int index, Color col)
+    {
+        keys[index] = new ColorKey(col, keys[index].Time);
     }
 
     [System.Serializable]
@@ -55,24 +86,32 @@ public class CustomGradient {
 
 	public Color Eval(float time)
     {
-        if (keys.Count == 0) return Color.white;
-
         ColorKey keyLeft = keys[0];
         ColorKey keyRight = keys[NumKeys - 1];
 
-        for (int i = 0; i < NumKeys - 1; i++)
+        for (int i = 0; i < NumKeys; i++)
         {
-            if (keys[i].Time <= time && keys[i + 1].Time >= time)
+            if (keys[i].Time < time)
             {
                 keyLeft = keys[i];
-                keyRight = keys[i + 1];
+            }
+            if (keys[i].Time > time)
+            {
+                keyRight = keys[i];
                 break;
             }
         }
 
-        float blendTime = Mathf.InverseLerp(keyLeft.Time, keyRight.Time, time);
+        if (blendMode == BlendMode.Linear)
+        {
+            float blendTime = Mathf.InverseLerp(keyLeft.Time, keyRight.Time, time);
 
-        return Color.Lerp(keyLeft.Color, keyRight.Color, blendTime);
+            return Color.Lerp(keyLeft.Color, keyRight.Color, blendTime);
+        }
+        else
+        {
+            return keyRight.Color;
+        }
     }
 
     public Texture2D GetTexture(int width)
