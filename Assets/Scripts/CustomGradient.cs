@@ -10,6 +10,32 @@ public class CustomGradient {
 
     public bool bRandomizeColor;
 
+    [System.Serializable]
+    public struct ColorKey
+    {
+        [SerializeField]
+        Color color;
+        [SerializeField]
+        float time;
+
+        public ColorKey(Color color, float time)
+        {
+            this.color = color;
+            this.time = time;
+        }
+
+        public Color Color
+        {
+            get
+            { return color; }
+        }
+
+        public float Time
+        {
+            get { return time; }
+        }
+    }
+
     [SerializeField]
     List<ColorKey> keys = new List<ColorKey>();
 
@@ -56,32 +82,6 @@ public class CustomGradient {
     public void UpdateKeyColor(int index, Color col)
     {
         keys[index] = new ColorKey(col, keys[index].Time);
-    }
-
-    [System.Serializable]
-    public struct ColorKey
-    {
-        [SerializeField]
-        Color color;
-        [SerializeField]
-        float time;
-
-        public ColorKey(Color color, float time)
-        {
-            this.color = color;
-            this.time = time;
-        }
-
-        public Color Color
-        {
-            get
-            { return color; }
-        }
-
-        public float Time
-        {
-            get { return time; }
-        }
     }
 
 	public Color Eval(float time)

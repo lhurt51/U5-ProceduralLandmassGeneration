@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
-public class UpdatableData : ScriptableObject {
+public class UpdatableData : ScriptableObject
+{
 
 	public event System.Action OnValuesUpdated;
 	public bool autoUpdate;
