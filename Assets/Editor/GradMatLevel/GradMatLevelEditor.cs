@@ -41,8 +41,8 @@ public class GradMatLevelEditor : EditorWindow {
 
     private void OnGUI()
     {
-        HandleInput();
         Draw();
+        HandleInput();
 
         if (shouldRepaint)
         {
@@ -85,6 +85,7 @@ public class GradMatLevelEditor : EditorWindow {
             gradient.UpdateMatTintStrength(selectedKeyIndex, newTintStrength);
             gradient.UpdateMatBlendStrength(selectedKeyIndex, newBlendStrength);
             gradient.UpdateMatTextureScale(selectedKeyIndex, newTextScale);
+            shouldRepaint = true;
         }
         
         gradient.bRandomizeTint = EditorGUILayout.Toggle("Randomize Tint", gradient.bRandomizeTint);
@@ -109,7 +110,7 @@ public class GradMatLevelEditor : EditorWindow {
                 }
             }
 
-            if (!mouseIsOverKey)
+            if (!mouseIsOverKey && matRects.Length < 7)
             {
                 float keyTime = Mathf.InverseLerp(gradPrevRect.x, gradPrevRect.xMax, guiEvent.mousePosition.x);
                 Color interpColor = gradient.Eval(keyTime);

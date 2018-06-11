@@ -159,7 +159,7 @@ public class CustomGradMatLevel {
             }
         }
 
-        return keyRight.Tint;
+        return keyLeft.Tint;
     }
 
     public Texture2D GetTexture(int width)
