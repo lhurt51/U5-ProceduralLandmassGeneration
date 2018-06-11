@@ -11,12 +11,12 @@ public class MapPriviewEditor : Editor {
 
         if (DrawDefaultInspector()) {
             if (mapGen.autoUpdate) {
-                mapGen.DrawMapInEditor();
+                mapGen.DrawMapInEditorGrad();
             }
         }
 
         if (GUILayout.Button("Generate")) {
-            mapGen.DrawMapInEditor();
+            mapGen.DrawMapInEditorGrad();
         }
     }
 

@@ -20,6 +20,7 @@ public class GradMatLevelDrawer : PropertyDrawer {
             GUI.Label(pos, label);
             gradStyle.normal.background = gradient.GetTexture((int)pos.width);
             GUI.Label(textRect, GUIContent.none, gradStyle);
+            GameObject.Find("MapPreview").GetComponent<MapPreview>().DrawMapInEditorGrad();
         }
         else if (guiEvent.type == EventType.MouseDown && guiEvent.button == 0 && textRect.Contains(guiEvent.mousePosition))
         {

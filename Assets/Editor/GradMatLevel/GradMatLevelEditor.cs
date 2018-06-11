@@ -16,10 +16,33 @@ public class GradMatLevelEditor : EditorWindow {
     bool shouldRepaint;
     int selectedKeyIndex;
 
+    public CustomGradMatLevel Gradient
+    {
+        get { return gradient; }
+    }
+
+    public void SetGradient(CustomGradMatLevel gradient)
+    {
+        this.gradient = gradient;
+    }
+
+    private void OnEnable()
+    {
+        titleContent.text = "Gradient Material Level Editor";
+        position.Set(position.x, position.y, 400, 250);
+        minSize = new Vector2(200, 250);
+        maxSize = new Vector2(1920, 250);
+    }
+
+    private void OnDisable()
+    {
+        UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(UnityEngine.SceneManagement.SceneManager.GetActiveScene());
+    }
+
     private void OnGUI()
     {
-        Draw();
         HandleInput();
+        Draw();
 
         if (shouldRepaint)
         {
@@ -56,7 +79,7 @@ public class GradMatLevelEditor : EditorWindow {
         float newTextScale = EditorGUILayout.FloatField("Texture Scale", gradient.GetMatLevel(selectedKeyIndex).TextureScale);
 
         if (EditorGUI.EndChangeCheck())
-        {
+        {  
             gradient.UpdateMatTint(selectedKeyIndex, newTint);
             gradient.UpdateMatTexture(selectedKeyIndex, newText);
             gradient.UpdateMatTintStrength(selectedKeyIndex, newTintStrength);
@@ -79,8 +102,8 @@ public class GradMatLevelEditor : EditorWindow {
             {
                 if (matRects[i].Contains(guiEvent.mousePosition))
                 {
-                    mouseIsOverKey = true;
                     selectedKeyIndex = i;
+                    mouseIsOverKey = true;
                     shouldRepaint = true;
                     break;
                 }
@@ -112,23 +135,5 @@ public class GradMatLevelEditor : EditorWindow {
             if (selectedKeyIndex >= gradient.NumMats) selectedKeyIndex--;
             shouldRepaint = true;
         }
-    }
-
-    public void SetGradient(CustomGradMatLevel gradient)
-    {
-        this.gradient = gradient;
-    }
-
-	private void OnEnable()
-    {
-        titleContent.text = "Gradient Material Level Editor";
-        position.Set(position.x, position.y, 400, 250);
-        minSize = new Vector2(200, 250);
-        maxSize = new Vector2(1920, 250);
-    }
-
-    private void OnDisable()
-    {
-        UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(UnityEngine.SceneManagement.SceneManager.GetActiveScene());
     }
 }

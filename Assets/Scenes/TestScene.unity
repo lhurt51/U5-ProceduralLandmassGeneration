@@ -172,7 +172,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 392047524}
-  m_Mesh: {fileID: 588122021}
+  m_Mesh: {fileID: 577326948}
 --- !u!4 &392047527
 Transform:
   m_ObjectHideFlags: 0
@@ -260,7 +260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce546861f43a46948a69e2a96097607e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!43 &588122021
+--- !u!43 &577326948
 Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -440,6 +440,7 @@ MonoBehaviour:
   meshSettings: {fileID: 11400000, guid: 36b8abf02726dfb4abab61c20a612c72, type: 2}
   heightMapSettings: {fileID: 11400000, guid: d875e61100a9af94b8aba2a6466bdfde, type: 2}
   textureData: {fileID: 11400000, guid: c591b32a6a742e74e857ecae2aaa1883, type: 2}
+  gradTextData: {fileID: 11400000, guid: e2ca93bb53d1888498c5da6fe77d0bfd, type: 2}
   terrainMaterial: {fileID: 2100000, guid: 0bec5e9c2e5a7404c98f21d1ef9dda9c, type: 2}
   editorPreviewLOD: 0
   autoUpdate: 1

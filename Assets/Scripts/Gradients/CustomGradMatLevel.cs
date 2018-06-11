@@ -8,7 +8,7 @@ public class CustomGradMatLevel {
     public bool bRandomizeTint;
 
     [System.Serializable]
-    public struct MatLevel
+    public class MatLevel
     {
         [SerializeField]
         Texture2D texture;
@@ -38,15 +38,9 @@ public class CustomGradMatLevel {
             get { return texture; }
         }
 
-        public void SetTexture(Texture2D texture)
-        {
-            this.texture = texture;
-        }
-
         public Color Tint
         {
-            get
-            { return tint; }
+            get { return tint; }
         }
 
         public float Height
@@ -94,7 +88,7 @@ public class CustomGradMatLevel {
         return mats;
     }
 
-    public int AddMat(Color color, float time, Texture2D texture = null, float tintStrength = 0.0f, float blendStrength = 0.0f, float textureScale = 25.0f)
+    public int AddMat(Color color, float time, Texture2D texture = null, float tintStrength = 1.0f, float blendStrength = 0.1f, float textureScale = 25.0f)
     {
         MatLevel newMat = new MatLevel(color, time, texture, tintStrength, blendStrength, textureScale);
 
